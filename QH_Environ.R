@@ -5,8 +5,8 @@
 
 library(stats); library(dismo); library(maptools); library(rgdal)
 
-setwd("E:/Zumwalde/havardii_environmental/data")
-
+#setwd("E:/Zumwalde/havardii_environmental/data")
+setwd("~/Desktop/QH_Environ")
 
 #*******************************************#
 
@@ -20,7 +20,8 @@ bioclim2.5 <- stack(files) #Create a raster stack
 #dim(bioclim2.5) #Looks at data structure
 
 #Extract data for QH Pops
-QHloc <- read.csv("BeckHob_QHOccur_NoUnknown.csv", sep=",", header=T, stringsAsFactors = FALSE) #Loading locations
+#QHloc <- read.csv("BeckHob_QHOccur_NoUnknown.csv", sep=",", header=T, stringsAsFactors = FALSE) #Loading locations
+QHloc <- read.csv("BeckHob_QHOccur_Vetted.csv", sep=",", header=T, stringsAsFactors = FALSE) #Loading locations
 summary(QHloc) #Checks that file loaded properly and looks at columns
 
 data(wrld_simpl)
@@ -34,18 +35,20 @@ clim <- extract(bioclim2.5, QHloc[,1:2]) #Extract climate data for locations
 library(elevatr)
 prj_dd <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
 df_elev_epqs <- get_elev_point(QHloc, prj = prj_dd, src = "epqs")
-# data.frame(df_elev_epqs)
+data.frame(df_elev_epqs)
 
-climate <- cbind(clim, df_elev_epqs$elevation)
+QHsoils <- read.csv("Soils_Data_AllPops_Quha_Vetted.csv", sep=",", header=T, stringsAsFactors = FALSE) #Loading locations
+QHsoils[QHsoils == 999] <- NA
 
-View(climate)
+climate <- cbind(clim, df_elev_epqs$elevation,QHsoils$Dep2ResLyr,QHsoils$omr,QHsoils$Sand)
+
 #Renaming columns and rows 
 #bioclim_names <- c("1_Ann_T","2_Diurnal_Range","3_Isothermality","4_T_Seasonality","5_MaxT_Wrmst_Month","6_MinT_Cldst_Month","7_T_Ann_Range","8_T_Wettest_Qtr","9_T_Driest_Qtr","10_T_Wrmst_Qtr","11_T_Cldst_Qtr","12_Ann_Precip","13_P_Wettest_Month","14_P_Driest_Month","15_P_Seasonality","16_P_Wettest_Qtr","17_P_Driest_Qtr","18_P_Wrmst_Qtr","19_P_Cldst_Qtr")
-bioclim_names <- c("BIO1","BIO2","BIO3","BIO4","BIO5","BIO6","BIO7","BIO8","BIO9","BIO10","BIO11","BIO12","BIO13","BIO14","BIO15","BIO16","BIO17","BIO18","BIO19", "Elev")
+bioclim_names <- c("BIO1","BIO2","BIO3","BIO4","BIO5","BIO6","BIO7","BIO8","BIO9","BIO10","BIO11","BIO12","BIO13","BIO14","BIO15","BIO16","BIO17","BIO18","BIO19", "Elev","DTRL", "OrgMat", "Sand")
 colnames(climate) <- bioclim_names
 rownames(climate) <-  QHloc$Pop
 
-
+View(climate)
 
 #*******************************************#
 
@@ -178,13 +181,16 @@ symbols_varsremoved <- symnum(res, abbr.colnames = FALSE)
 #install_github("vqv/ggbiplot")
 
 library(tibble);library(scales);library(devtools);library(ggbiplot);library(ggplot2)
+#install_github("vqv/ggbiplot") # must be installed after devtools is loaded in
 
 
 # ***** PCA without removing correlated variables ****#
 
+climate2 <- na.omit(climate)
+nrow(climate2)
 
-climate.pca <- prcomp(climate, center = TRUE,scale. = TRUE)
-climate.region <- c(rep("E",243), rep("W",60))
+climate.pca <- prcomp(climate2, center = TRUE,scale. = TRUE)
+climate.region <- c(rep("E",205), rep("W",32))
 #climate.region <- c(rep("EB_E",221),rep("SH_E",22), rep("SH_W",17),rep("EB_W",43), rep("Unknown",4))
 
 climate.pca  #loadings
