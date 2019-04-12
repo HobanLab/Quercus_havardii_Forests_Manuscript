@@ -12,8 +12,9 @@ setwd("C:/Users/shoban/Documents/GitHub/QH_EnvironmentalAnalyses/")
 clim <- extract(bioclim2.5, QHloc[,1:2]) 
 #subtract the correlated variables
 clim<-clim[,-c(1,5,6,13,14,16,18)]
-#add in lat/long
-clim_and_loc<-cbind(clim, QHloc[,1:2])
+
+#add in lat/long- optional... I would argue that lat long are not biologically relevant here
+#clim_and_loc<-cbind(clim, QHloc[,1:2])
 
 
 #################
@@ -59,7 +60,6 @@ setwd("C:/Users/shoban/Documents/GitHub/QH_EnvironmentalAnalyses/")
  abline(lm(eq1))
  mtext(paste("R2= ",round(unlist(summary(lm(eq1))[8]),3),sep=""),side=3)
  # text(eq1, labels = gen_sum_stats[,2],cex=2) #optional to add labels for pop names
-
  }
  
  row_col_signif<-which( matrix(p.adjust(reg_pval,"BY"),nrow=12,ncol=5)<0.05,arr.ind=T)
@@ -71,6 +71,5 @@ setwd("C:/Users/shoban/Documents/GitHub/QH_EnvironmentalAnalyses/")
  abline(lm(eq1))
  mtext(paste("R2= ",round(unlist(summary(lm(eq1))[8]),3),sep=""),side=3)
  # text(eq1, labels = gen_sum_stats[,2],cex=2) #optional to add labels for pop names
-
  }
  
