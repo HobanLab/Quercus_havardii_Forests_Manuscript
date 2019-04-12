@@ -1,30 +1,50 @@
+##################
+#Get climate variables 
+##################
+
 setwd("C:/Users/shoban/Downloads/wc2.0_2.5m_bio")
  files <- list.files(pattern='tif', full.names=TRUE) #Load climate files
  bioclim2.5 <- stack(files) #Create a raster stack
- setwd("C:/Users/shoban/Documents/GitHub/QH_EnvironmentalAnalyses/")
+
+setwd("C:/Users/shoban/Documents/GitHub/QH_EnvironmentalAnalyses/")
  QHloc <- read.csv("Hob_QHOccur_gen.csv", sep=",", header=T, stringsAsFactors = FALSE) #Loading locations
-data(wrld_simpl)
+
 clim <- extract(bioclim2.5, QHloc[,1:2]) 
+#subtract the correlated variables
 clim<-clim[,-c(1,5,6,13,14,16,18)]
+#add in lat/long
+clim_and_loc<-cbind(clim, QHloc[,1:2])
 
- setwd("C:/Users/shoban/Dropbox/Projects/IN_PROGRESS/Oak_popgen_analyses/Qhavardii/7indiv_11loci/")
+
+#################
+#Get genetic data
+##################
+setwd("C:/Users/shoban/Dropbox/Projects/IN_PROGRESS/Oak_popgen_analyses/Qhavardii/7indiv_11loci/")
 gen_sum_stats<-read.csv("Qha_summ_stats.csv") 
-
-#summary(lm(gen_sum_stats[,5]~clim[,1]))
-reg_res<-matrix(nrow=dim(clim)[2],ncol=5)
+#these are the genetic statistics: number clones (5). heterozygosity (6), allelic richness (8), pw FST (9), relatedness (10)
 stat_list<-c(5,6,8,9,10)
+
+
+##################
+#Regressions
+################
+
+#place to keep regression results (p values) of all regressions run
+reg_pval<-matrix(nrow=dim(clim)[2],ncol=5)
+reg_r2<-matrix(nrow=dim(clim)[2],ncol=5)
 
 for (ss in 1:length(stat_list)){
 	for (c in 1:dim(clim)[2]){
-		p_val<-summary(lm(gen_sum_stats[,stat_list[ss]]~clim[,c]))[4][[1]][8]
-		reg_res[c,ss]<-p_val
+		reg_pval[c,ss]<-summary(lm(gen_sum_stats[,stat_list[ss]]~clim[,c]))[4][[1]][8]
+		reg_r2<-summary(lm(gen_sum_stats[,stat_list[ss]]~clim[,c]))[8]	
 	}
 }
- matrix(p.adjust(reg_res,"BH"),nrow=12,ncol=5)
+ matrix(p.adjust(reg_pval,"BH"),nrow=12,ncol=5)
  
- which(p.adjust(reg_res,"BH")<0.05)%%12
+ which(p.adjust(reg_pval,"BH")<0.05)%%12
  [1]  2  3 10  2  3  8  9 10  1  2  8 10
  
+ sort(reg_r2)
  
   setwd("C:/Users/shoban/Documents/GitHub/QH_EnvironmentalAnalyses/")
 list_bioc<-read.csv("list_bioclim_var.csv")
@@ -45,7 +65,7 @@ list_bioc<-read.csv("list_bioclim_var.csv")
  plot(gen_sum_stats[,10]~clim[,8])
  plot(gen_sum_stats[,10]~clim[,10])
  
- matrix(p.adjust(reg_res,"BY"),nrow=12,ncol=5)
+ matrix(p.adjust(reg_pval,"BY"),nrow=12,ncol=5)
  pdf(width=10, height=4,file="regr_gen_clim.pdf")
  par(mfrow=c(1,3))
 
