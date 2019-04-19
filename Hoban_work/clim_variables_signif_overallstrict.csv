@@ -1,4 +1,4 @@
 "","V1","V2"
-"1"," Isothermality (BIO2/BIO7) (* 100)","Qha_pwfst"
-"2"," Precipitation Seasonality (Coefficient of Variation)","Qha_Hexp"
-"3"," Precipitation Seasonality (Coefficient of Variation)","Qha_all_rich"
+"1"," Annual Precipitation","Qha_Hexp"
+"2"," Annual Precipitation","Qha_all_rich"
+"3"," Isothermality (BIO2/BIO7) (* 100)","Qha_pwfst"
