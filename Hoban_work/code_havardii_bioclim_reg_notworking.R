@@ -42,11 +42,17 @@ point_colors<-c(rep("red",13),rep("blue",13))
 point_shapes<-c(rep(21,13),rep(24,13))
 plot_col<-4
 
+#Note: The following analysis assumes we ran correlations for populations within each region and picked out
+	#the least correlated variables within each region to include
+	#We originally looked at removing correlated variables based on all the populations 
+	#but ran into the problem of two perfectly correlated variables in east
+	#to do this, subtract the correlated variables clim<-clim[,-c(1,5,6,13,14,16,18)]
+	#which would mean c(2:4,7:10,12,15,17,19); I did this and saved such results under folder "old" 
+	
 #Loop to go over East, West, East+West Together, and West without W-1
 for (p in 1:4){
 	#store name of region we are in for writing file names
-	#subtract the correlated variables clim<-clim[,-c(1,5,6,13,14,16,18)]
-
+	
 	if (p==1) { region<-"E"; clim_to_keep<-c(1,3,4,6,11,15,18); clim_reg<-clim[,clim_to_keep] }
 	if (p==2) { region<-"W"; clim_to_keep<-c(2,3,7,9,10,14,17,18,19); clim_reg<-clim[,clim_to_keep] }
 	if (p==3) { region<-"overall"; clim_to_keep<-c(2:4,7:10,12,15,17,19); clim_reg<-clim[,clim_to_keep] }
