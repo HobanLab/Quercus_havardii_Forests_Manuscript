@@ -7,7 +7,7 @@ library(stats); library(dismo); library(maptools); library(rgdal)
 #For PCA and correlations
 
 #install_github("vqv/ggbiplot")
-library(tibble);library(scales);library(devtools);library(ggbiplot);library(ggplot2)
+library(tibble);library(scales);library(ggbiplot);library(ggplot2)
 #install_github("vqv/ggbiplot") # must be installed after devtools is loaded in
 library("FactoMineR")
 library("factoextra")
@@ -92,8 +92,10 @@ ggbiplot(climateFinal.pca2, ellipse = FALSE, obs.scale = 1.5, var.scale = 1.5, v
   theme(legend.position = "none")
 
 #Final Figure with Axes changed
-ggbiplot(climateFinal.pca2, ellipse = FALSE, obs.scale = 1.25, var.scale = 1.5, varname.adjust = 1.5, 
-         var.axes = TRUE, labels= NULL, groups=climate.region_Final)+
+
+#if color changes to the arrows should want to be made, run R script Arrow_edits.R before running this plot
+g <- ggbiplot(climateFinal.pca2, ellipse = FALSE, obs.scale = 1.25, var.scale = 1.5, varname.adjust = 1.5, 
+              var.axes = TRUE, labels= NULL, groups=climate.region_Final)+
   geom_text_repel(aes(label = rownames(climateFinal)), nudge_x = 0.25, nudge_y = 0.1, size=4)+
   scale_colour_manual(values = c("red", "blue"))+
   geom_point(aes(shape=climate.region_Final, color=climate.region_Final, size=3))+
@@ -107,3 +109,8 @@ ggbiplot(climateFinal.pca2, ellipse = FALSE, obs.scale = 1.25, var.scale = 1.5, 
   theme(panel.border = element_rect(fill="transparent", colour = "black")) +
   theme(legend.position = "none") +
   scale_x_reverse()
+g
+
+#g$layers <- c(g$layers, g$layers[[3]])
+#g$layers <- c(g$layers, g$layers[[1]])
+#g
