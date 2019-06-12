@@ -87,7 +87,7 @@ ggbiplot <- function (pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
     }
     g <- g + geom_segment(data = df.v, aes(x = 0, y = 0, 
                                            xend = xvar, yend = yvar), arrow = arrow(length = unit(1/2, 
-                                                                                                  "picas")), color = ("gray"))
+                                                                                                  "picas")), color = ("grey40"))
   }
   if (!is.null(df.u$labels)) {
     if (!is.null(df.u$groups)) {
@@ -125,9 +125,10 @@ ggbiplot <- function (pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
   if (var.axes) {
     g <- g + geom_text(data = df.v, aes(label = varname, 
                                         x = xvar, y = yvar, angle = angle, hjust = hjust), 
-                       color = "darkgrey", size = varname.size)
+                       color = "grey40", size = 3.75)
   }
   return(g)
 }
 <bytecode: 0x10a444f88>
   <environment: namespace:ggbiplot>
+  

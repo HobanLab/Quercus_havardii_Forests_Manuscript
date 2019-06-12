@@ -17,8 +17,8 @@ library(ggrepel)
 #*******************************************#
 #Read in data and building matrix
 #*******************************************#
-#setwd("E:/Zumwalde/havardii_environmental/data")
-setwd("~/Desktop/QH_Environ")
+setwd("E:/Zumwalde/havardii_environmental/data")
+#setwd("~/Desktop/QH_Environ")
 # http://worldclim.org/version2 is where data was pulled from
 files <- list.files("WORLDCLIM", pattern='tif', full.names=TRUE) #Load climate files
 bioclim2.5 <- stack(files) #Create a raster stack
@@ -29,11 +29,35 @@ setwd("~/Documents/GitHub/QH_EnvironmentalAnalyses")
 QHloc_Final <- read.csv("QH_Pops_Final.csv", sep=",", header=T, stringsAsFactors = FALSE)
 data(wrld_simpl)
 climateFinal <- climate <- extract(bioclim2.5, QHloc_Final[,1:2]) #Extract climate data for locations
+#write.csv(climateFinal, file = "climate_Final.csv")
+
 
 #Renaming columns and rows 
 bioclim_names <- c("BIO1","BIO2","BIO3","BIO4","BIO5","BIO6","BIO7","BIO8","BIO9","BIO10","BIO11","BIO12","BIO13","BIO14","BIO15","BIO16","BIO17","BIO18","BIO19")
 colnames(climateFinal) <- bioclim_names
 rownames(climateFinal) <-  c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E10", "E13", "E14", "W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8", "W9", "W10", "W11", "W12", "WAUX3") 
+pops <-  c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E10", "E13", "E14", "W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8", "W9", "W10", "W11", "W12", "WAUX3") 
+
+library(dplyr)
+
+climate.region <- c(rep("E",10), rep("W",13))
+climateFinal2 <- as.data.frame(climateFinal, row.names = TRUE)
+colnames(climateFinal2) <- c("reg", "pops", "BIO1","BIO2","BIO3","BIO4","BIO5","BIO6","BIO7","BIO8","BIO9","BIO10","BIO11","BIO12","BIO13","BIO14","BIO15","BIO16","BIO17","BIO18","BIO19")
+climateFinal2 <- cbind(climate.region,pops,climateFinal2)
+dim(climateFinal2)
+
+library("ggpubr")
+ggboxplot(climateFinal2, x = "reg", y = "BIO10", 
+          color = "reg",
+          order = c("E", "W"),
+          ylab = "Region", xlab = "BIO10")
+
+res.aov <- aov(BIO19 ~ reg, data = climateFinal2)
+summary(res.aov)
+
+
+#tapply(climateFinal2$BIO1, climate.region, mean)
+#tapply(climateFinal2$BIO1, climate.region, sd)
 
 
 #*******************************************#
@@ -81,6 +105,11 @@ climateFinal.pca2 <- prcomp(climateFinal2, center = TRUE,scale. = TRUE)
 climateFinal.pca2  #loadings
 climate.region_Final <- c(rep("E",10), rep("W",13))
 
+res.pca <- PCA(climateFinal2, graph = FALSE)
+var <- get_pca_var(res.pca)
+write.csv(var$contrib, file = "contributions_Final.csv")
+fviz_pca_var(res.pca, col.var = "black")
+
 ggbiplot(climateFinal.pca2, ellipse = FALSE, obs.scale = 1.5, var.scale = 1.5, varname.adjust = 3.2, 
          var.axes = TRUE, labels= NULL, groups=climate.region_Final)+
   geom_text_repel(aes(label = rownames(climateFinal)), nudge_x = 0.1, size=4)+
@@ -96,7 +125,7 @@ ggbiplot(climateFinal.pca2, ellipse = FALSE, obs.scale = 1.5, var.scale = 1.5, v
 #if color changes to the arrows should want to be made, run R script Arrow_edits.R before running this plot
 g <- ggbiplot(climateFinal.pca2, ellipse = FALSE, obs.scale = 1.25, var.scale = 1.5, varname.adjust = 1.5, 
               var.axes = TRUE, labels= NULL, groups=climate.region_Final)+
-  geom_text_repel(aes(label = rownames(climateFinal)), nudge_x = 0.25, nudge_y = 0.1, size=4)+
+  geom_text_repel(aes(label = rownames(climateFinal)), color = "black", nudge_x = 0.25, nudge_y = 0.1, size=4.5)+
   scale_colour_manual(values = c("red", "blue"))+
   geom_point(aes(shape=climate.region_Final, color=climate.region_Final, size=3))+
   geom_hline(yintercept = 0, color = "black")+
@@ -111,6 +140,6 @@ g <- ggbiplot(climateFinal.pca2, ellipse = FALSE, obs.scale = 1.25, var.scale = 
   scale_x_reverse()
 g
 
-#g$layers <- c(g$layers, g$layers[[3]])
-#g$layers <- c(g$layers, g$layers[[1]])
-#g
+g$layers <- c(g$layers, g$layers[[3]])
+g$layers <- c(g$layers, g$layers[[1]])
+g
