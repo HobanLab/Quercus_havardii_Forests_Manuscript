@@ -82,4 +82,3 @@ library(egg)
 
 ggarrange(g, m, e, widths = c(1.5,1.5,1.5))
 
-
