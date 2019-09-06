@@ -30,7 +30,7 @@ setwd("C:/Users/shoban.DESKTOP-DLPV5IJ/Documents/git/QH_EnvironmentalAnalyses/Ho
 ##################
 gen_sum_stats<-read.csv("Qha_summ_stats.csv") 
 #these are the genetic statistics: number clones (5). heterozygosity (6), allelic richness (8), pw FST (9), relatedness (10)
-stat_list<-c(6,8,9,10)
+stat_list<-c(6,8,10)
 
 
 
@@ -60,8 +60,8 @@ for (p in 1:4){
 	if (p==4) { region<-"W_sub"; clim_to_keep<-c(2,3,7,9,10,14,17,18,19); clim_reg<-clim[,clim_to_keep] }
 	
 	#place to keep regression results (p values) of all regressions run
-	reg_pval<-matrix(nrow=dim(clim_reg)[2],ncol=4)
-	reg_r2<-matrix(nrow=dim(clim_reg)[2],ncol=4)
+	reg_pval<-matrix(nrow=dim(clim_reg)[2],ncol=3)
+	reg_r2<-matrix(nrow=dim(clim_reg)[2],ncol=3)
 
 	#linear models
 	for (ss in 1:length(stat_list)){
@@ -72,7 +72,37 @@ for (p in 1:4){
 	}
 	
 	#identify rows and columns with significant p values 
-	 	row_col_signif<-which( matrix(p.adjust(reg_pval,"BH"),nrow=length(clim_to_keep),ncol=4)<0.05,arr.ind=T)
+	 	row_col_signif<-which( matrix(p.adjust(reg_pval,"none"),nrow=length(clim_to_keep),ncol=3)<=0.05,arr.ind=T)
+	if (length(row_col_signif)!=0){
+	#store the list of which variables are significant and what genetic statistic
+		variables_id<-matrix(nrow=length(row_col_signif[,1]),ncol=2)
+		for (l in 1:length(row_col_signif[,1])) variables_id[l,1]<-as.character(list_bioc[row_col_signif[l,1],3])
+		for (l in 1:length(row_col_signif[,1])) variables_id[l,2]<-colnames(gen_sum_stats)[stat_list[row_col_signif[l,2]]]
+		write.csv(variables_id[order(variables_id[,1]),],file=paste0("clim_variables_signif_",region,"loose.csv"))
+	 
+	 sort(reg_r2)
+		 
+	 #this will cycle through all signification associations (row_col_signif) and plot that regression, pulling from row_col_signif
+		if (p==1) { pdf(width=10, height=5,file=paste0("regr_gen_clim_none_",region,".pdf")); par(mfrow=c(1,3))}
+		if (p==2) { pdf(width=10, height=8,file=paste0("regr_gen_clim_none_",region,".pdf")); par(mfrow=c(2,3))}
+		if (p==3) { pdf(width=12, height=9,file=paste0("regr_gen_clim_none_",region,".pdf")); par(mfrow=c(4,4),mar=c(4,4,2,2),oma=c(2,3,1,1))}
+		if (p==4) { pdf(width=10, height=8,file=paste0("regr_gen_clim_none_",region,".pdf")); par(mfrow=c(1,2))}
+
+		for (i in 1:nrow(row_col_signif)){
+			eq1<-gen_sum_stats[pop_set[[p]],stat_list[row_col_signif[i,2]]]~clim_reg[pop_set[[p]],row_col_signif[i,1]]
+			 plot(eq1,col=point_colors[pop_set[[p]]],pch=point_shapes[pop_set[[p]]], xlab=list_bioc[row_col_signif[i,1],3], ylab=colnames(gen_sum_stats)[stat_list[row_col_signif[i,2]]])
+			 abline(lm(eq1))
+			 mtext(paste("R2= ",round(unlist(summary(lm(eq1))[8]),3),sep=""),side=3)
+			  #text(eq1, labels = gen_sum_stats[pop_set[[p]],2]) #optional to add labels for pop names
+		 }
+		dev.off() 
+		
+	}
+	
+	
+	
+	#identify rows and columns with significant p values 
+	 	row_col_signif<-which( matrix(p.adjust(reg_pval,"BH"),nrow=length(clim_to_keep),ncol=3)<=0.05,arr.ind=T)
 	if (length(row_col_signif)!=0){
 	#store the list of which variables are significant and what genetic statistic
 		variables_id<-matrix(nrow=length(row_col_signif[,1]),ncol=2)
@@ -99,7 +129,7 @@ for (p in 1:4){
 
 	
 	#identify rows and columns with significant p values 
-		row_col_signif<-which( matrix(p.adjust(reg_pval,"BY"),nrow=length(clim_to_keep),ncol=4)<0.05,arr.ind=T)
+		row_col_signif<-which( matrix(p.adjust(reg_pval,"BY"),nrow=length(clim_to_keep),ncol=3)<=0.05,arr.ind=T)
 	 if (length(row_col_signif)!=0){
 	 #store the list of which variables are significant and what genetic statistic
 		variables_id<-matrix(nrow=length(row_col_signif[,1]),ncol=2)

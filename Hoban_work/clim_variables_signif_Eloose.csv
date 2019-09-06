@@ -1,3 +1,4 @@
 "","V1","V2"
-"1"," Mean Temperature of Driest Quarter","Qha_Hexp"
-"2"," Mean Temperature of Driest Quarter","Qha_all_rich"
+"1"," Isothermality (BIO2/BIO7) (* 100)","Qha_Hexp"
+"2"," Isothermality (BIO2/BIO7) (* 100)","Qha_all_rich"
+"3"," Temperature Seasonality (standard deviation *100)","Qha_all_rich"
