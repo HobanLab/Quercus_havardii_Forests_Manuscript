@@ -123,6 +123,8 @@ for (p in 1:4){
 			 abline(lm(eq1))
 			 mtext(paste(paste("R2= ",round(unlist(summary(lm(eq1))[8]),3),sep=""),paste("p= ",round(summary(lm(eq1))[4][[1]][8],3),sep=""),sep="  "),side=3)
 			  #text(eq1, labels = gen_sum_stats[pop_set[[p]],2]) #optional to add labels for pop names
+	  		if (p==1|p==2) {print(p); print(summary(lm(eq1)))}
+
 		 }
 		dev.off() 
 		
