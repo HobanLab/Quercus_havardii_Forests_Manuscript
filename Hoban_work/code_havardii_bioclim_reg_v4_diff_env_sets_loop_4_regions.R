@@ -21,8 +21,7 @@ setwd("C:/Users/shoban.DESKTOP-DLPV5IJ/Documents/git/QH_EnvironmentalAnalyses/Ho
  
  #read in the names of the bioclim variables for the axis names of the plots
  #the x is for those variables to be removed due to correlation
- list_bioc<-read.csv("list_bioclim_var.csv")
- list_bioc<-list_bioc[-which(list_bioc[,1]=="x"),]
+ list_bioc<-read.csv("list_bioclim_var.csv",header=F)
 
  
 #################
@@ -38,7 +37,7 @@ stat_list<-c(6,8,10)
 # Do Regressions
 ################
 
-pop_set<-list(1:10,11:23,1:23,15:23)
+pop_set<-list(1:10,11:23,1:23,12:23)
 point_colors<-c(rep("red",10),rep("blue",13))
 point_shapes<-c(rep(21,10),rep(24,13))
 plot_col<-4
@@ -90,9 +89,10 @@ for (p in 1:4){
 
 		for (i in 1:nrow(row_col_signif)){
 			eq1<-gen_sum_stats[pop_set[[p]],stat_list[row_col_signif[i,2]]]~clim_reg[pop_set[[p]],row_col_signif[i,1]]
-			 plot(eq1,col=point_colors[pop_set[[p]]],pch=point_shapes[pop_set[[p]]], xlab=list_bioc[row_col_signif[i,1],3], ylab=colnames(gen_sum_stats)[stat_list[row_col_signif[i,2]]])
+			 plot(eq1,col=point_colors[pop_set[[p]]],pch=point_shapes[pop_set[[p]]], 
+			 xlab=list_bioc[clim_to_keep[row_col_signif[i,1]],3], ylab=colnames(gen_sum_stats)[stat_list[row_col_signif[i,2]]])
 			 abline(lm(eq1))
-			 mtext(paste("R2= ",round(unlist(summary(lm(eq1))[8]),3),sep=""),side=3)
+			mtext(paste(paste("R2= ",round(unlist(summary(lm(eq1))[8]),3),sep=""),paste("p= ",round(summary(lm(eq1))[4][[1]][8],3),sep=""),sep="  "),side=3)
 			  #text(eq1, labels = gen_sum_stats[pop_set[[p]],2]) #optional to add labels for pop names
 		 }
 		dev.off() 
@@ -102,7 +102,7 @@ for (p in 1:4){
 	
 	
 	#identify rows and columns with significant p values 
-	 	row_col_signif<-which( matrix(p.adjust(reg_pval,"BH"),nrow=length(clim_to_keep),ncol=3)<=0.05,arr.ind=T)
+	 	row_col_signif<-which( matrix(p.adjust(reg_pval,"BH"),nrow=length(clim_to_keep),ncol=3)<=0.054,arr.ind=T)
 	if (length(row_col_signif)!=0){
 	#store the list of which variables are significant and what genetic statistic
 		variables_id<-matrix(nrow=length(row_col_signif[,1]),ncol=2)
@@ -118,9 +118,10 @@ for (p in 1:4){
 		if (p==3) { pdf(width=12, height=9,file=paste0("regr_gen_clim_loose_",region,".pdf")); par(mfrow=c(5,4),mar=c(4,4,2,2),oma=c(2,3,1,1))}
 		for (i in 1:nrow(row_col_signif)){
 			eq1<-gen_sum_stats[pop_set[[p]],stat_list[row_col_signif[i,2]]]~clim_reg[pop_set[[p]],row_col_signif[i,1]]
-			 plot(eq1,col=point_colors[pop_set[[p]]],pch=point_shapes[pop_set[[p]]], xlab=list_bioc[row_col_signif[i,1],3], ylab=colnames(gen_sum_stats)[stat_list[row_col_signif[i,2]]])
+			 plot(eq1,col=point_colors[pop_set[[p]]],pch=point_shapes[pop_set[[p]]], 
+			 xlab=list_bioc[clim_to_keep[row_col_signif[i,1]],3], ylab=colnames(gen_sum_stats)[stat_list[row_col_signif[i,2]]])
 			 abline(lm(eq1))
-			 mtext(paste("R2= ",round(unlist(summary(lm(eq1))[8]),3),sep=""),side=3)
+			 mtext(paste(paste("R2= ",round(unlist(summary(lm(eq1))[8]),3),sep=""),paste("p= ",round(summary(lm(eq1))[4][[1]][8],3),sep=""),sep="  "),side=3)
 			  #text(eq1, labels = gen_sum_stats[pop_set[[p]],2]) #optional to add labels for pop names
 		 }
 		dev.off() 
@@ -129,7 +130,7 @@ for (p in 1:4){
 
 	
 	#identify rows and columns with significant p values 
-		row_col_signif<-which( matrix(p.adjust(reg_pval,"BY"),nrow=length(clim_to_keep),ncol=3)<=0.05,arr.ind=T)
+		row_col_signif<-which( matrix(p.adjust(reg_pval,"BY"),nrow=length(clim_to_keep),ncol=3)<=0.054,arr.ind=T)
 	 if (length(row_col_signif)!=0){
 	 #store the list of which variables are significant and what genetic statistic
 		variables_id<-matrix(nrow=length(row_col_signif[,1]),ncol=2)
@@ -141,9 +142,10 @@ for (p in 1:4){
 		if (p==3) { pdf(width=11, height=9,file=paste0("regr_gen_clim_strict_",region,".pdf")); par(mfrow=c(3,3),mar=c(4,4,2,2),oma=c(2,3,1,1))}
 		for (i in 1:nrow(row_col_signif)){
 			 eq1<-gen_sum_stats[pop_set[[p]],stat_list[row_col_signif[i,2]]]~clim_reg[pop_set[[p]],row_col_signif[i,1]]
-			 plot(eq1,col=point_colors[pop_set[[p]]],pch=point_shapes[pop_set[[p]]], xlab=list_bioc[row_col_signif[i,1],3], ylab=colnames(gen_sum_stats)[stat_list[row_col_signif[i,2]]])
+			 plot(eq1,col=point_colors[pop_set[[p]]],pch=point_shapes[pop_set[[p]]], 
+			 xlab=list_bioc[clim_to_keep[row_col_signif[i,1]],3], ylab=colnames(gen_sum_stats)[stat_list[row_col_signif[i,2]]])
 			 abline(lm(eq1))
-			 mtext(paste("R2= ",round(unlist(summary(lm(eq1))[8]),3),sep=""),side=3)
+			 mtext(paste(paste("R2= ",round(unlist(summary(lm(eq1))[8]),3),sep=""),paste("p= ",round(summary(lm(eq1))[4][[1]][8],3),sep=""),sep="  "),side=3)
 			  #text(eq1, labels = gen_sum_stats[pop_set[[p]],2]) #optional to add labels for pop names
 		 }
 	dev.off() 
