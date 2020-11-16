@@ -42,21 +42,28 @@ It was decided that populations must be roughly 5 km (~3 miles) apart from each 
 
 <h2>Available Data and Description of Workflow</h2>
 
-<h3>1. Genetic Dataset</h3>
-&#8195;1.1 Raw Data <br>
-&#8195;1.2 Scripts
+ <h3>1. Genetic Dataset</h3>
+&#8195; <h4> 1.1 Raw Data </h4>
+&#8195; <h4> 1.2 Scripts </h4>
+
 <h3>2. Morphometric Dataset</h3>
-&#8195;2.1 Raw Data <br>
-&#8195;2.2 Scripts
+&#8195; <h4> 2.1 Raw Data </h4>
+&#8195;reduced_means_July_15_1.csv<br>
+&#8195; <h4> 2.2 Scripts </h4>
+
 <h3>3. Environmental Dataset</h3>
-&#8195;3.1 Raw Data <br>
-&#8195;3.2 Scripts
+&#8195; <h4> 3.1 Raw Data </h4>
+&#8195;QH_Pops_Final.csv<br>
+&#8195; <h4> 3.2 Scripts</h4><br>
+&#8195;QH_Environ_Final.R<br>
+&#8195;QH_Environ_Normality_Correlations.R<br>
+
 <h3>4. Regressions</h3>
-&#8195;4.1 Raw Data <br>
-&#8195;4.2 Scripts
+&#8195; <h4>4.1 Raw Data </h4>
+&#8195; <h4>4.2 Scripts</h4>
 <h3>5. Figures</h3>
-&#8195;5.1 PCA Panel Figure<br>
-&#8195;5.2 Preliminary Figures
+&#8195; <h4> 5.1 PCA Panel Figure </h4>
+&#8195; <h4> 5.2 Preliminary Figures </h4>
 
 
 
