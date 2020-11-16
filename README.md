@@ -42,29 +42,39 @@ It was decided that populations must be roughly 5 km (~3 miles) apart from each 
 
 <h2>Available Data and Description of Workflow</h2>
 
- <h3>1. Genetic Dataset</h3>
-<h4> 1.1 Raw Data </h4>
-<h4> 1.2 Scripts </h4>
-
-<h3>2. Morphometric Dataset</h3>
-<h4> 2.1 Raw Data </h4>
-&#8195;reduced_means_July_15_1.csv<br>
-<h4> 2.2 Scripts </h4>
-
-<h3>3. Environmental Dataset</h3>
-<h4> 3.1 Raw Data </h4>
-&#8195;QH_Pops_Final.csv<br>
-<h4> 3.2 Scripts</h4><br>
-&#8195;QH_Environ_Final.R<br>
-&#8195;QH_Environ_Normality_Correlations.R<br>
-
-<h3>4. Regressions</h3>
-<h4>4.1 Raw Data </h4>
-<h4>4.2 Scripts</h4>
-<h3>5. Figures</h3>
-<h4> 5.1 PCA Panel Figure </h4>
-<h4> 5.2 Preliminary Figures </h4>
-
-
-
-
+<ol>
+<b><li>Genetic Dataset</li></b>
+<b><li>Morphometric Dataset</li></b>
+  <ol>
+      <li>Raw Data</li>
+      <ol>
+    <li>reduced_means_July_15_1.csv</li>
+         </ol>
+    <li>Scripts</li></ol></li>
+<b><li>Environmental Dataset</b>
+  <ol>
+    <li>Raw Data</li>
+      <ol>
+    <li>QH_Pops_Final.csv</li>
+         </ol>
+    <li>Scripts</li>
+         <ol>
+    <li>QH_Environ_Final.R</li>
+    <li>QH_Environ_Normality_Correlations.R</li>
+         </ol>
+  </ol>
+  </li>
+<b><li>Regressions</b>
+    <ol>
+    <li>Raw Data</li>
+      <ol>
+    <li>raw.csv here</li>
+         </ol>
+  </ol>
+  </li>
+<b><li>Figures</li></b>
+         <ol>
+    <li>PCA Panel Figure</li>
+    <li>Preliminary Figures</li>
+         </ol>
+</ol>
