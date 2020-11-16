@@ -35,7 +35,7 @@ Seed, leaves, soil, and herbarium vouchers were sampled from havardii in two sep
 <br>
 A total of 667 samples from 26 primary populations and 10 auxiliary populations of georeferenced locations were used in this study.   Populations were chosen by contacting land managers of private and public land in the region, by consulting GBIF and SEINet, and via suggestions from the International Oak Society.  The objective was to ensure populations were sampled throughout the geographic range. 
 
-<h2> Defining Population Delimitations</h2>
+<h2> Delimiting Populations</h2>
 It was decided that populations must be roughly 5 km (~3 miles) apart from each other.  This distance was based off of pollen flow limits.  Emma Spence used GIS to determine population edge proximities to each other and total area of each population which can be found here. For populations with individual GPS coordinates also had calculations for individual-individual distances (mean, min, etc.) within populations. Debates were had of which populations may or may not need to be split or recombined. To summarize the issue briefly, most of our populations are sampled on the scale of a few hundred meters to about 1 km among individuals sampled per population.
 
 
@@ -44,36 +44,59 @@ It was decided that populations must be roughly 5 km (~3 miles) apart from each 
 
 <ol>
 <b><li>Genetic Dataset</li></b>
+  <ol>
+    <li>Raw Data</li>
+      <ol>
+          <li>raw.csv here</li>
+         </ol>
+    <li>Scripts</li>
+         <ol>
+        <li>Script 1 here</li>
+        <li>Script 2 here</li>
+         </ol>
+  </ol>
+  </li>
 <b><li>Morphometric Dataset</li></b>
   <ol>
       <li>Raw Data</li>
       <ol>
-    <li>reduced_means_July_15_1.csv</li>
+         <li>reduced_means_July_15_1.csv</li>
          </ol>
-    <li>Scripts</li></ol></li>
-<b><li>Environmental Dataset</b>
-  <ol>
-    <li>Raw Data</li>
-      <ol>
-    <li>QH_Pops_Final.csv</li>
-         </ol>
-    <li>Scripts</li>
+     <li>Scripts</li>
          <ol>
-    <li>QH_Environ_Final.R</li>
-    <li>QH_Environ_Normality_Correlations.R</li>
+         <li>Script 1 here</li>
+         <li>Script 2 here</li>
          </ol>
   </ol>
   </li>
-<b><li>Regressions</b>
-    <ol>
+<b><li>Environmental Dataset</li></b>
+  <ol>
     <li>Raw Data</li>
       <ol>
-    <li>raw.csv here</li>
+        <li>QH_Pops_Final.csv</li>
+        </ol>
+    <li>Scripts</li>
+         <ol>
+         <li>QH_Environ_Final.R</li>
+         <li>QH_Environ_Normality_Correlations.R</li>
+         </ol>
+  </ol>
+  </li>
+<b><li>Regressions</li></b>
+  <ol>
+     <li>Raw Data</li>
+      <ol>
+          <li>raw.csv here</li>
+         </ol>
+    <li>Scripts</li>
+         <ol>
+         <li>Script 1 here</li>
+         <li>Script 2 here</li>
          </ol>
   </ol>
   </li>
 <b><li>Figures</li></b>
-         <ol>
+ <ol>
     <li>PCA Panel Figure</li>
     <li>Preliminary Figures</li>
          </ol>
