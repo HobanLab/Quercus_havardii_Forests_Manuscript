@@ -42,62 +42,53 @@ It was decided that populations must be roughly 5 km (~3 miles) apart from each 
 
 <h2>Available Data and Description of Workflow</h2>
 
+Below is a list of main items and short descriptions for separate analyses used in the paper
+
 <ol>
 <b><li>Genetic Dataset</li></b>
   <ol>
-    <li>Raw Data</li>
+    <b><li>Qhavardii</li></b>
       <ol>
-          <li>raw.csv here</li>
-         </ol>
-    <li>Scripts</li>
-         <ol>
-        <li>Script 1 here</li>
-        <li>Script 2 here</li>
+         <b> <li>7indiv_11loci_RedefinedPopsMay2019</b> (Primary folder containing raw files and outputs used to calculate genetic statistics)</li>
+         <b> <li>code_havardii_analysis_final.R </b>(Final script used to execute analyses) </li>
+         <b> <li>Older </b>(This contains raw data and code for preliminary analyses)</li>
          </ol>
   </ol>
   </li>
 <b><li>Morphometric Dataset</li></b>
   <ol>
-      <li>Raw Data</li>
+      <b><li>Raw Data</li></b>
       <ol>
-         <li>reduced_means_July_15_1.csv</li>
+        <b> <li>QH_total_ANOVA.csv </b>(Used for ANOVAs)</li>
+        <b> <li>QH_total.csv </b>(Used for PCA analyses and boxplots)</li>
          </ol>
-     <li>Scripts</li>
+     <b><li>Scripts</b></li>
          <ol>
-         <li>Script 1 here</li>
-         <li>Script 2 here</li>
+        <b> <li>Final harvardii morphology scripts.R</b> (R script for all morphological analyses)</li>
          </ol>
   </ol>
   </li>
 <b><li>Environmental Dataset</li></b>
   <ol>
-    <li>Raw Data</li>
+    <b><li>Raw Data</b></li>
       <ol>
-        <li>QH_Pops_Final.csv</li>
+      <b>  <li>QH_Pops_Final.csv</b> (Geographic localities used for bioclimatic analyses)</li>
         </ol>
-    <li>Scripts</li>
+    <b><li>Scripts</b></li>
          <ol>
-         <li>QH_Environ_Final.R</li>
-         <li>QH_Environ_Normality_Correlations.R</li>
+         <b><li>QH_Environ_Final.R</b> (Used to make environmental PCA)</li>
+        <b> <li>QH_Environ_Normality_Correlations.R</b> (Used to check for correlated bioclimatic variables)</li>
          </ol>
   </ol>
   </li>
 <b><li>Regressions</li></b>
   <ol>
-     <li>Raw Data</li>
-      <ol>
-          <li>raw.csv here</li>
-         </ol>
-    <li>Scripts</li>
-         <ol>
-         <li>Script 1 here</li>
-         <li>Script 2 here</li>
-         </ol>
+    <b> <li>Hoban_work</b> (Contains all raw code, scrips, and outputs for regressions of genetic and morphological traits with environmental variables)</li>
   </ol>
   </li>
 <b><li>Figures</li></b>
  <ol>
-    <li>PCA Panel Figure</li>
-    <li>Preliminary Figures</li>
+    <b><li>PCA Panel Figure</b> (Scripts for making panel of genetic, morphological, and environmental PCA's) </li>
+    <b><li>Preliminary Figures</b> (Archival preliminary figures) </li>
          </ol>
 </ol>
