@@ -80,6 +80,16 @@ Qha_N_v_MLG<-poppr(popr_test)[pop_keep,2:3] #note this is not popr_nocl because 
 num_clones<-Qha_N_v_MLG[,1]-Qha_N_v_MLG[,2]
 Qha_Hexp<-poppr(popr_nocl)[pop_keep,10]
 
+#Calculating Hobs and Hexp per population by averaging loci
+n.pop <- seppop(popr_nocl) 
+mean.hobs <- do.call("c", lapply(n.pop, function(x) mean(summary(x)$Hobs)))
+mean.hobs[is.nan(mean.hobs)] <- NA 
+barplot(mean.hobs)
+
+mean.hexp <- do.call("c", lapply(n.pop, function(x) mean(summary(x)$Hexp)))
+mean.hexp[is.nan(mean.hexp)] <- NA 
+barplot(mean.hexp)
+
 East_pops<-which(substr(pop_names[pop_keep],1,1)=="E")
 West_pops<-which(substr(pop_names[pop_keep],1,1)=="W")
 
