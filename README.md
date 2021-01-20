@@ -1,7 +1,7 @@
 <h1> <i>Quercus havardii - Forests</i> Manuscript </h1>
 
 Raw data and R scripts for analyzing <i>Quercus havardii</i> genetic, morphological, and environmental analyses. 
-This manuscript is in preparation to be submitted to the open access journal <i>Forests</i> in a Special Issue titled “<i>Quercus</i> Genetics: Insights into the Past, Present, and Future of Oaks.
+This manuscript is in preparation to be submitted to the open access journal <i>Forests</i> in a Special Issue titled “<i>Quercus</i> Genetics: Insights into the Past, Present, and Future of Oaks. https://doi.org/10.5281/zenodo.4453098
 
 <h2>Overview</h2>
 The genetic diversity patterns of widespread species can be influenced by large scale and local factors. Environmental heterogeneity, as well as degree of connectivity, across the distribution of a species can play a critical role in the genetic and morphological divergence of populations and can act as a speciation mechanism. We examine these relationships within the genus <i>Quercus</i>, a model clade for exploring evolutionary processes due to its diversity, dominance, and importance in ecosystems. We studied <i>Quercus havardii</i>, a uniquely adapted desert oak with a disjunct distribution. We used population-level analyses of genetic, morphological, and environmental variables over various geographic scales to quantify differentiation and understand the forces that influence the divergence of populations in the species.
